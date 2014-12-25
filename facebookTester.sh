@@ -54,18 +54,13 @@ chr() {
 addUser(){
     x=97
     y=98
-    Users="2\n"
-    for((i=0;i<24;i++))
+    Users=""
+    for((i=0;i<25;i++))
     do
-    Users+="$(chr $x)"
-    Users+="$(chr $x)"
-    Users+="$(chr $y)"
-    let ++x
-    Users+="$(chr $x)"
-    let ++y
-    Users+="$(chr $y)2\n"
+    Users+="2\n"
+    Users+="$i\n"
     done
-    Users+="Ben\n1\n8\n"
+    Users+="1\n8\n"
     printf $Users | valgrind --tool=memcheck --leak-check=full --track-origins=yes ./facebook
     echo "$Output"
     echo "You should see 25 Users"
@@ -74,19 +69,15 @@ addUser(){
 deleteUser(){
     x=97
     y=98
-    Users="2\n"
+    Users=""
     for((i=0;i<24;i++))
     do
-    Users+="$(chr $x)"
-    Users+="$(chr $x)"
-    Users+="$(chr $y)"
-    let ++x
-    Users+="$(chr $x)"
-    let ++y
-    Users+="$(chr $y)2\n"
+    Users+="2\n"
+    Users+="$i"
+    Users+="\n"
     done
-    Users+="Ben\n1\n3\n"
-    for((i=1;i<24;i++))
+    Users+="1\n3\n"
+    for((i=1;i<25;i++))
     do
     Users+="$i\n3\n"
     done
@@ -97,20 +88,12 @@ deleteUser(){
     read -p 'Press any key to continue...' -n 1 io
 }
 addFriend(){
-    x=97
-    y=98
-    Users="2\n"
-    for((i=0;i<24;i++))
+    Users=""
+    for((i=0;i<25;i++))
     do
-    Users+="$(chr $x)"
-    Users+="$(chr $x)"
-    Users+="$(chr $y)"
-    let ++x
-    Users+="$(chr $x)"
-    let ++y
-    Users+="$(chr $y)2\n"
+    Users+="2\n"
+    Users+="$i\n"
     done
-    Users+="Ben\n1\n"
     for((i=1;i<26;i++))
     do
         for((j=1;j<26;j++))
@@ -121,27 +104,18 @@ addFriend(){
     Users+="1\n8\n"
     printf $Users | valgrind --tool=memcheck --leak-check=full --track-origins=yes ./facebook
     echo "$Output"
-    echo "You should see 25 Users, each user has 25 friends"
+    echo "You should see 25 Users, each user has 24 friends"
     read -p 'Press any key to continue...' -n 1 io
 }
 deleteFriend(){
-    x=97
-    y=98
-    Users="2\n"
-    for((i=0;i<24;i++))
+    for((i=0;i<25;i++))
     do
-    Users+="$(chr $x)"
-    Users+="$(chr $x)"
-    Users+="$(chr $y)"
-    let ++x
-    Users+="$(chr $x)"
-    let ++y
-    Users+="$(chr $y)2\n"
+    Users+="2\n"
+    Users+="$i\n"
     done
-    Users+="Ben\n1\n5\n1\n2\n"
-    for((i=1;i<25;i++))
+    for((i=1;i<26;i++))
     do
-        for((j=1;j<25;j++))
+        for((j=1;j<26;j++))
         do
         Users+="4\n$i\n$j\n"
         done
@@ -165,6 +139,7 @@ mutual(){
     echo "$Output"
     echo "Common friends:"
     echo "User: ori       ID: 1"
+    echo "Note: There are no common friends is also good output"
     read -p 'Press any key to continue...' -n 1 io
 }
 viral(){
@@ -232,20 +207,13 @@ viral(){
     read -p 'Press any key to continue...' -n 1 io
 }
 viral2(){
-    x=97
-    y=98
     Users=""
-    for((i=0;i<24;i++))
+    for((i=0;i<25;i++))
     do
-    Users+="2\n$(chr $x)"
-    Users+="$(chr $x)"
-    Users+="$(chr $y)"
-    let ++x
-    Users+="$(chr $x)"
-    let ++y
-    Users+="$(chr $y)"
+    Users+="2\n"
+    Users+="$i\n"
     done
-    Users+="2\nBen\n1\n"
+    Users+="1\n"
     Users+="4\n6\n25\n4\n21\n23\n4\n1\n22\n4\n10\n11\n4\n17\n9\n4\n16\n23\n4\n20\n4\n4\n1\n23\n4\n7\n5\n4\n24\n8\n4\n20\n5\n4\n20\n9\n4\n3\n6\n4\n25\n4\n4\n2\n1\n4\n17\n3\n4\n3\n20\n4\n22\n21\n4\n14\n15\n4\n12\n7\n4\n11\n3\n4\n21\n10\n4\n7\n8\n4\n14\n5\n4\n19\n16\n4\n21\n25\n4\n18\n20\n4\n13\n9\n4\n16\n9\n4\n4\n4\n4\n13\n13\n4\n8\n22\n4\n11\n19\n4\n2\n12\n4\n6\n10\n4\n16\n21\n4\n7\n6\n4\n6\n8\n4\n12\n5\n4\n11\n16\n4\n7\n25\n4\n18\n3\n4\n1\n25\n4\n5\n11\n4\n1\n5\n4\n22\n17\n4\n5\n24\n4\n8\n21\n4\n6\n11\n4\n12\n3\n1\n7\n8\n"
     echo "***Note: this test takes a few minutes"
     sleep 5
